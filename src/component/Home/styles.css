@@ -1,0 +1,33 @@
+body {
+        margin-left:auto;
+        margin-right:auto;
+        height:auto;
+        width:auto;
+  }
+
+
+.crls {
+  width: '40px';
+  height: 'auto';
+  margin-top: '5%';
+  color: "blue"
+}
+
+.submitButton {
+  margin-top: '2%';
+  margin-bottom:'3%';
+  padding: "100px";
+}
+
+.log_center{
+  min-height: '100vh';
+  display: 'flex';
+  align-items: 'center';
+}
+
+.textField{
+  width:'100%';
+  text-Align:'center';
+  padding-Top:'5%';
+}
+
