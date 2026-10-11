@@ -9,6 +9,7 @@ import ImageBox from "./ImageBox"
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 import Modal from "react-modal";
+import { API_URLS } from "../../config";
 // @cloudscape-design/components/modal
 import Input from "@cloudscape-design/components/input";
 import "@fontsource/open-sans"; // Defaults to weight 400
@@ -180,9 +181,8 @@ function Home() {
   async function submitLogin() {
     try {
       let alias = aliasValue.toString();
-      let url = "https://jbk08mzwr9.execute-api.us-west-2.amazonaws.com/v1/" // the API for face2alias_login
-      let res = await fetch(url, {
-          // at first we were using ANY in the api, therefore it would give us Missing Authentication Token error, and it took us a while to understand this was the error 
+      let res = await fetch(API_URLS.login, {
+        method: 'POST',
         body: alias
       });
       if (res.status === 200) {
@@ -195,7 +195,6 @@ function Home() {
         }, 2000);
         
       } else {
-        console.log(res);
         setAlert(true);
         setTimeout(() => {
           setAlert(false);
@@ -203,18 +202,17 @@ function Home() {
       }
       setAliasValue("");
     } catch (error) {
-      console.log("error");
+      console.error(error);
     }
   };
 
 
   function face2aliasSubmit() {
     if (value === null || value.length === 0) {
-      console.log("Error: no file specified")
+      return;
     }
     else {
       let file = new File(value, "image.jpeg");
-      console.log(file);
       let reader = new FileReader();
       reader.readAsDataURL(file);
       setIsButtonDisabled(true);
@@ -222,9 +220,7 @@ function Home() {
         try {
           let image_base64 = reader.result;
           let body = image_base64.substring(37);
-          console.log(image_base64)
-          let url = "https://oi10c481f0.execute-api.us-west-2.amazonaws.com/v1/"
-          let res = await fetch(url, {
+          let res = await fetch(API_URLS.upload, {
             method: 'POST',
             body: body
           });
@@ -233,7 +229,7 @@ function Home() {
           setIsButtonDisabled(false);
           setValue([]);
         } catch (error) {
-          console.log("error");
+          console.error(error);
         }
 
       }
@@ -277,7 +273,6 @@ function Home() {
 
         let num_detected = aliases_list.length;
         let cols = [];
-        console.log(aliases_list)
 
         for (let i = 0; i < num_detected; i++) {
           if (aliases_list[i] === "") {
@@ -327,7 +322,7 @@ function Home() {
         sessionStorage.setItem("reactStates", JSON.stringify(reactStates));
       },
       function(error) {
-        console.log(error);
+        console.error(error);
       }
     );
   }
@@ -342,9 +337,7 @@ function Home() {
 
   async function handleSignUp() {
     try {
-      let url = "https://pvhh2t3sgb.execute-api.us-west-2.amazonaws.com/v1/" // the API for face2alias_signup
       let file = new File(phonetool, "phonetool.jpeg");
-      console.log(file);
       let reader = new FileReader();
       reader.readAsDataURL(file);
       let alias = aliasNew.toString();
@@ -356,12 +349,11 @@ function Home() {
           "image": img
         }
         let body_json = JSON.stringify(body);
-        let res = await fetch(url, {
+        let res = await fetch(API_URLS.signup, {
           method: 'POST', 
           body: body_json
         });
         let data = await res.json();
-        console.log(data);
         if (res.status === 200) {
           setSuccessSign(true);
           setUser(aliasNew);
@@ -383,13 +375,12 @@ function Home() {
         setAliasNew("");
       }
     } catch (error) {
-      console.log("error");
+      console.error(error);
     }
   }
 
   function logout_function(e) {
     sessionStorage.clear();
-    console.log(e);
     setIsButtonDisabled(false);
     setPreviousUploads([]);
     setBB([]);
