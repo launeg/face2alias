@@ -1,5 +1,4 @@
 import React, { useRef, useEffect } from "react";
-const AmazonFont = require('../../fonts/AmazonEmber_Rg.ttf');
 
 const ImageBox = ({ image_base64, boxesCoordinates, width, height, color, aliases}) => {
   const canvasRef = useRef(null);
@@ -24,7 +23,7 @@ const ImageBox = ({ image_base64, boxesCoordinates, width, height, color, aliase
 
         ctx.strokeStyle = color[i];
 
-        ctx.font = AmazonFont; // set to aws font
+        ctx.font = "14px 'Open Sans', sans-serif";
         ctx.lineWidth = 2;
         ctx.strokeRect(boxesCoordinates[i].x, boxesCoordinates[i].y, boxesCoordinates[i].width, boxesCoordinates[i].height); // draw the box
       

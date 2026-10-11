@@ -154,7 +154,7 @@ function Home() {
   //Sign Up Modal
   const [isSign, setIsSign] = React.useState(false);
   const [aliasNew, setAliasNew] = React.useState("");
-  const [phonetool, setPhonetool] = React.useState([]);
+  const [profilePhoto, setProfilePhoto] = React.useState([]);
   const [alertSign, setAlertSign] = React.useState(false);
   const [successSign, setSuccessSign] = React.useState(false);
   const [alertMessage, setAlertMessage] = React.useState("");
@@ -329,7 +329,7 @@ function Home() {
 
   function toggleSignUp() {
     setAliasNew("");
-    setPhonetool([]);
+    setProfilePhoto([]);
     setAliasValue("");
     setIsModalOpen(!isModalOpen);
     setIsSign(!isSign);
@@ -337,7 +337,7 @@ function Home() {
 
   async function handleSignUp() {
     try {
-      let file = new File(phonetool, "phonetool.jpeg");
+      let file = new File(profilePhoto, "profile.jpeg");
       let reader = new FileReader();
       reader.readAsDataURL(file);
       let alias = aliasNew.toString();
@@ -369,7 +369,7 @@ function Home() {
           setTimeout(() => {
             setAlertSign(false);
             setAlertMessage("");
-            setPhonetool([]);
+            setProfilePhoto([]);
           }, 4500);
         }
         setAliasNew("");
@@ -484,8 +484,8 @@ function Home() {
                         <br/>
                         <FileUpload
                           style= {imageButton}
-                          onChange={({ detail }) => setPhonetool(detail.value)}
-                          value={phonetool}
+                          onChange={({ detail }) => setProfilePhoto(detail.value)}
+                          value={profilePhoto}
                           i18nStrings={{
                             uploadButtonText: e =>
                               e ? "Choose files" : "Choose file",
@@ -503,7 +503,7 @@ function Home() {
                           showFileSize
                           showFileThumbnail
                           tokenLimit={1}
-                          constraintText="Upload jpeg phonetool"
+                          constraintText="Upload a jpeg photo of your face"
                         />
 
                       </div>
@@ -532,7 +532,7 @@ function Home() {
                 {
                   type: "menu-dropdown",
                   text: user, 
-                  description: user + "@amazon.com",
+                  description: user + "@example.com",
                   onItemClick: (event) => {
                     if (event.detail.id === "signout") {
                       logout_function();
