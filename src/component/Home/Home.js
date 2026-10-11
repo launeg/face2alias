@@ -10,6 +10,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 import Modal from "react-modal";
 import { API_URLS } from "../../config";
+import { stripDataUrlPrefix, scaleToHeight, buildBoxes } from "../../utils";
 // @cloudscape-design/components/modal
 import Input from "@cloudscape-design/components/input";
 import "@fontsource/open-sans"; // Defaults to weight 400
@@ -219,7 +220,7 @@ function Home() {
       reader.onload = async function() {
         try {
           let image_base64 = reader.result;
-          let body = image_base64.substring(37);
+          let body = stripDataUrlPrefix(image_base64);
           let res = await fetch(API_URLS.upload, {
             method: 'POST',
             body: body
@@ -256,14 +257,8 @@ function Home() {
 
     getDimensions.then(
       function(da) {
-        let wid = da[0];
-        let hei = da[1];
+        let { width: wid, height: hei } = scaleToHeight(da[0], da[1]);
 
-        let ratio = 400 / hei;
-        hei *= ratio;
-        wid *= ratio;
-
-        let boxes = [];
         let aliases_list = data['aliases'];
         let boxes_list = data['boxes'];
 
@@ -271,21 +266,8 @@ function Home() {
           return;
         }
 
-        let num_detected = aliases_list.length;
-        let cols = [];
-
-        for (let i = 0; i < num_detected; i++) {
-          if (aliases_list[i] === "") {
-            cols.push("#FF0000");
-            aliases_list[i] = "na";
-          } else {
-            cols.push("#39FF14");
-            let temp = aliases_list[i];
-            aliases_list[i] = " " + temp + " ";
-          }
-          // how to get the name
-          boxes.push({x: boxes_list[i]['Left'] * wid, y: boxes_list[i]['Top'] * hei, width: boxes_list[i]['Width'] * wid, height: boxes_list[i]['Height'] * hei})
-        }
+        let { boxes, colors: cols, aliases: labels } = buildBoxes(aliases_list, boxes_list, wid, hei);
+        aliases_list = labels;
         let temp1 = boxesOfBoxes;
         temp1.push(boxes);
         setBB(temp1);
@@ -343,7 +325,7 @@ function Home() {
       let alias = aliasNew.toString();
       reader.onload = async function() {
         let image_base64 = reader.result;
-        let img = image_base64.substring(37);
+        let img = stripDataUrlPrefix(image_base64);
         let body = {
           "alias": alias,
           "image": img
