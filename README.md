@@ -9,7 +9,15 @@ Photo Face Finder Page:
 Architecture:
 ![HLD AWS Architecture diagram](https://github.com/launeg/face2alias/blob/main/ArchitectureDiagramFace2Alias.png)
 
+Run the frontend:
+```
+cp .env.example .env   # set the three API Gateway URLs
+npm install
+npm start
+```
+The frontend calls three API Gateway endpoints (login, signup, upload). The 2023 backend is not in this repo, so those URLs must point at your own deployment.
+
 Project History
-Face2Alias was originally co-developed by Laura Negrin and Nathan Wang during their 2023 AWS internship. Laura primarily contributed to the frontend while Nathan primarily implemented primarily the backend, with both collaborating on architecture, AWS integration, research, testing, and debugging.
+Face2Alias was originally co-developed by Laura Negrin and Nathan Wang during their 2023 AWS internship. Laura primarily contributed to the frontend while Nathan primarily implemented the backend, with both collaborating on architecture, AWS integration, research, testing, and debugging.
 
 This repository has since been reconstructed and modernized by Laura as a portfolio project, including reproducible infrastructure, updated backend implementation, testing, and documentation.
