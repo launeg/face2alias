@@ -1,3 +1,6 @@
+
+
+
 ## Face2Alias
 
 Sign Up Page:
@@ -8,6 +11,16 @@ Photo Face Finder Page:
 
 Architecture:
 ![HLD AWS Architecture diagram](https://github.com/launeg/face2alias/blob/main/ArchitectureDiagramFace2Alias.png)
+
+Frontend Screenshot Demo:
+Login/Sign Up:
+<img width="1511" height="775" alt="Screenshot 2026-10-10 at 11 48 44 PM" src="https://github.com/user-attachments/assets/b0713706-06d3-4958-b211-db308e2d53e6" />
+
+Upload photo:
+<img width="1511" height="775" alt="Screenshot 2026-10-10 at 11 50 42 PM" src="https://github.com/user-attachments/assets/5a5f5d00-b115-4dcc-83f1-e29c8cd9a674" />
+
+Result:
+<img width="1511" height="821" alt="Screenshot 2026-10-10 at 11 57 16 PM" src="https://github.com/user-attachments/assets/2661a91c-0dad-4092-ab96-a2a516724ba4" />
 
 Run the frontend:
 ```
