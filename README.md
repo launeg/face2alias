@@ -14,6 +14,7 @@ Run the frontend:
 cp .env.example .env   # set the three API Gateway URLs
 npm install
 npm start
+npm test
 ```
 The frontend calls three API Gateway endpoints (login, signup, upload). The 2023 backend is not in this repo, so those URLs must point at your own deployment.
 

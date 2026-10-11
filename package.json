@@ -23,6 +23,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test"
   },
+  "jest": {
+    "transformIgnorePatterns": ["node_modules/(?!@cloudscape-design/).*\\.(js|mjs)$"]
+  },
   "eslintConfig": {
     "extends": ["react-app"]
   },
